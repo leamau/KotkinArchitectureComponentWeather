@@ -1,6 +1,6 @@
 package com.example.kotkinarchitecturecomponentweather.data
 
-import com.example.kotkinarchitecturecomponentweather.data.Response.CurrentWeatherResponse
+import com.example.kotkinarchitecturecomponentweather.data.network.Response.CurrentWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -25,14 +25,14 @@ interface WeatherApiService {
     companion object {
         operator  fun invoke() : WeatherApiService{
             val requestInterceptor = Interceptor{ chain ->
-                val uril = chain.request()
+                val uri = chain.request()
                     .url()
                     .newBuilder()
                     .addQueryParameter("key", token)
                     .build()
                 val request = chain.request()
                     .newBuilder()
-                    .url(uril)
+                    .url(uri)
                     .build()
 
                 return@Interceptor chain.proceed((request))

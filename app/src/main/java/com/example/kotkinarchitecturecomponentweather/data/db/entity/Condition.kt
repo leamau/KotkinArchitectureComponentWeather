@@ -1,4 +1,4 @@
-package com.example.kotkinarchitecturecomponentweather.data.Response
+package com.example.kotkinarchitecturecomponentweather.data.db.entity
 
 data class Condition(
     val text: String,
