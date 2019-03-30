@@ -13,18 +13,20 @@ import com.example.kotkinarchitecturecomponentweather.data.network.Response.Curr
 import com.example.kotkinarchitecturecomponentweather.data.network.WeatherApiService
 import com.example.kotkinarchitecturecomponentweather.data.network.WeatherNetworkDataSource
 import com.example.kotkinarchitecturecomponentweather.data.network.WeatherNetworkDataSourceImpl
+import com.example.kotkinarchitecturecomponentweather.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
 
-class CurrentWeatherFragment : Fragment() {
-
-    companion object {
-        fun newInstance() =
-            CurrentWeatherFragment()
-    }
+class CurrentWeatherFragment : ScopedFragment(),KodeinAware {
+    override val kodein by closestKodein()
+    private val viewModelFactory:CurrentWeatherViewModelFactory by instance()
 
     private lateinit var viewModel: CurrentWeatherViewModel
 
@@ -37,18 +39,19 @@ class CurrentWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
-        val apiService = WeatherApiService(ConnectivityInterceptorImpl(this.context!!))
-        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+        viewModel = ViewModelProviders.of(this,viewModelFactory)
+            .get(CurrentWeatherViewModel::class.java)
 
-        weatherNetworkDataSource.downloadedCurrentWeather.observe(this, Observer {
-            textView.text=it.toString()
+        bindUI()
+
+    }
+
+    private fun bindUI() = launch{
+        val currentWeather = viewModel.weather.await()
+        currentWeather.observe(this@CurrentWeatherFragment,Observer{
+            if(it==null)return@Observer
+            textView.text = it.toString()
         })
-
-        GlobalScope.launch(Dispatchers.Main) {
-            weatherNetworkDataSource.fetchCurrentWeather("Toulouse","fr")
-            //textView.text = currentWeatherResponse.toString()
-        }
     }
 
 }
