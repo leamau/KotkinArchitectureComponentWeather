@@ -9,10 +9,15 @@
               android:label="current_weather_fragment" tools:layout="@layout/current_weather_fragment"/>
     <fragment android:id="@+id/listWeatherFragment"
               android:name="com.example.kotkinarchitecturecomponentweather.ui.weather.List.ListWeatherFragment"
-              android:label="list_weather_fragment" tools:layout="@layout/list_weather_fragment"/>
+              android:label="list_weather_fragment" tools:layout="@layout/list_weather_fragment">
+        <action android:id="@+id/actionDetail"
+                app:destination="@id/detailWeatherFragment"/>
+    </fragment>
     <fragment android:id="@+id/detailWeatherFragment"
               android:name="com.example.kotkinarchitecturecomponentweather.ui.weather.Detail.DetailWeatherFragment"
-              android:label="detail_weather_fragment" tools:layout="@layout/detail_weather_fragment"/>
+              android:label="detail_weather_fragment" tools:layout="@layout/detail_weather_fragment">
+        <argument android:name="dateString" app:argType="string"/>
+    </fragment>
     <fragment android:id="@+id/settingsFragment"
               android:name="com.example.kotkinarchitecturecomponentweather.ui.settings.SettingsFragment"
               android:label="SettingsFragment"/>

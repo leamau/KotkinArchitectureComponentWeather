@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.kotkinarchitecturecomponentweather.data.db.CurrentWeatherDao
 import com.example.kotkinarchitecturecomponentweather.data.db.FutureWeatherDao
 import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Current.UnitSpecificCurrentWeatherEntry
+import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Future.Detail.UnitSpecificDetailFutureWeatherEntry
 import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.kotkinarchitecturecomponentweather.data.network.FORECAST_DAYS_COUNT
 import com.example.kotkinarchitecturecomponentweather.data.network.Response.CurrentWeatherResponse
@@ -81,6 +82,17 @@ class ForecatRepositoryImpl(
             initWeatherDatas()
             return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
             else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
+        }
+    }
+
+    override suspend fun getFutureWeatherByDate(
+        date: LocalDate,
+        metric: Boolean
+    ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
+        return withContext(Dispatchers.IO) {
+            initWeatherDatas()
+            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(date)
+            else futureWeatherDao.getDetailedWeatherByDateImperial(date)
         }
     }
 
