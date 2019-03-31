@@ -1,4 +1,4 @@
-package com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized
+package com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Current
 
 interface UnitSpecificCurrentWeatherEntry {
     val temperature:Double

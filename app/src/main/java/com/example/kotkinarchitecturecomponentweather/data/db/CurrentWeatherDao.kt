@@ -7,8 +7,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.kotkinarchitecturecomponentweather.data.db.entity.CurrentWeatherEntry
 import com.example.kotkinarchitecturecomponentweather.data.db.entity.Current_Weather_ID
-import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.ImperialCurrentWeatherEntry
-import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.MetricCurrentWeatherEntry
+import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Current.ImperialCurrentWeatherEntry
+import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Current.MetricCurrentWeatherEntry
 
 @Dao
 interface CurrentWeatherDao {

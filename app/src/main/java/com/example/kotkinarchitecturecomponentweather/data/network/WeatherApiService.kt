@@ -1,6 +1,7 @@
 package com.example.kotkinarchitecturecomponentweather.data.network
 
 import com.example.kotkinarchitecturecomponentweather.data.network.Response.CurrentWeatherResponse
+import com.example.kotkinarchitecturecomponentweather.data.network.Response.FutureWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -21,6 +22,14 @@ interface WeatherApiService {
         @Query("q")location: String,
         @Query("lang") languageCode: String = "fr"
     ) : Deferred<CurrentWeatherResponse>
+
+    //http://api.apixu.com/v1/forecast.json?key=2481daf063a94cf7b41115325192803&q=Toulouse&days=7
+    @GET("forecast.json")
+    fun getFutureWeather(
+        @Query("q") location:String,
+        @Query("days")days:Int,
+        @Query("lang") languageCode: String = "fr"
+    ) : Deferred<FutureWeatherResponse>
 
     companion object {
         operator  fun invoke(

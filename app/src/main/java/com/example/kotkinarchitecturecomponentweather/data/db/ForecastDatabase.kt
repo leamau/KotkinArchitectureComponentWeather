@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.kotkinarchitecturecomponentweather.data.db.entity.CurrentWeatherEntry
+import com.example.kotkinarchitecturecomponentweather.data.network.Response.FutureWeatherResponse
 
 @Database(
     entities = [CurrentWeatherEntry::class],
@@ -13,6 +14,7 @@ import com.example.kotkinarchitecturecomponentweather.data.db.entity.CurrentWeat
 
 abstract class ForecastDatabase :RoomDatabase() {
     abstract fun currentWeatherDao(): CurrentWeatherDao
+    abstract fun futureWeatherDao():FutureWeatherDao
 
     companion object {
         @Volatile private var instance :ForecastDatabase? = null

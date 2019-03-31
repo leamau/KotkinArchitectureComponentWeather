@@ -2,7 +2,7 @@ package com.example.kotkinarchitecturecomponentweather.data.Repository
 
 import androidx.lifecycle.LiveData
 import com.example.kotkinarchitecturecomponentweather.data.db.CurrentWeatherDao
-import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.UnitSpecificCurrentWeatherEntry
+import com.example.kotkinarchitecturecomponentweather.data.db.unitLocalized.Current.UnitSpecificCurrentWeatherEntry
 import com.example.kotkinarchitecturecomponentweather.data.network.Response.CurrentWeatherResponse
 import com.example.kotkinarchitecturecomponentweather.data.network.WeatherNetworkDataSource
 import kotlinx.coroutines.Dispatchers
