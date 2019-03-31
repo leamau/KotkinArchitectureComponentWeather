@@ -4,14 +4,15 @@ import androidx.lifecycle.ViewModel;
 import com.example.kotkinarchitecturecomponentweather.Internal.UnitSystem
 import com.example.kotkinarchitecturecomponentweather.Internal.lazyDeffered
 import com.example.kotkinarchitecturecomponentweather.data.Repository.ForecastRepository
+import com.example.kotkinarchitecturecomponentweather.data.providers.UnitProvider
+import com.example.kotkinarchitecturecomponentweather.ui.base.WeatherViewModel
 
 class CurrentWeatherViewModel(
-    private  val forecastRepository:ForecastRepository
-) : ViewModel() {
-    private val unit = UnitSystem.METRIC //récupéré dans les settings plus tard
-    val isMetric :Boolean
-        get() = unit == UnitSystem.METRIC
+    private  val forecastRepository:ForecastRepository,
+    unitProvider: UnitProvider
+) : WeatherViewModel(forecastRepository,unitProvider ) {
+
     val weather by lazyDeffered {
-        forecastRepository.getCurrentWeather(isMetric)
+        forecastRepository.getCurrentWeather(isMetricUnit)
     }
 }
